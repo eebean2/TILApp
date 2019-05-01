@@ -1,20 +1,26 @@
+/*
+ * Copyright (c) 2019 Razeware LLC, Brick Water Studios L.L.C.
+ *
+ * TILApp
+ *
+ * Based on the TILApp from RayWinderlich 'Server Side Swift with Vapor'
+ * book, modified by Brick Water Studios for use in their Julieanne server
+ * technology. Original copyright Razeware LLC, modified application
+ * copyright Brick Water Studios L.L.C.
+ *
+ */
+
 import Vapor
+import Fluent
 
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
-    // Basic "It works" example
-    router.get { req in
-        return "It works!"
-    }
+    let acronymsController = AcronymsController()
+    try router.register(collection: acronymsController)
     
-    // Basic "Hello, world!" example
-    router.get("hello") { req in
-        return "Hello, world!"
-    }
-
-    // Example of configuring a controller
-    let todoController = TodoController()
-    router.get("todos", use: todoController.index)
-    router.post("todos", use: todoController.create)
-    router.delete("todos", Todo.parameter, use: todoController.delete)
+    let usersController = UsersController()
+    try router.register(collection: usersController)
+    
+    let categoriesController = CategoriesController()
+    try router.register(collection: categoriesController)
 }
